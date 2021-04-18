@@ -133,7 +133,7 @@ func Handler(req *alice.Request) (*alice.Response, error) {
 		cars, carsLen, err := getAvailableCars(req)
 		if err == nil {
 			carsWord := declOfNum(carsLen, []string{"машина", "машины", "машин"})
-			resText = fmt.Sprintf("Рядом с вами нашлась %d %s", carsLen, carsWord)
+			resText = fmt.Sprintf("Рядом с вами нашлась %d %s:", carsLen, carsWord)
 			for _, car := range cars {
 				resText += fmt.Sprintf("\n%s", car)
 			}
@@ -148,6 +148,14 @@ func Handler(req *alice.Request) (*alice.Response, error) {
 		Response: alice.ResponsePayload{
 			Text:       resText,
 			EndSession: false,
+			//Buttons: []alice.ResponseButton{
+			//	{
+			//		Title:   "Открыть в приложении",
+			//		Payload: nil,
+			//		URL:     "delimobil://cars", //TODO поддерживается только протокол https
+			//		Hide:    false,
+			//	},
+			//},
 		},
 		Session: alice.ResponseSession{
 			SessionID: req.Session.SessionID,
